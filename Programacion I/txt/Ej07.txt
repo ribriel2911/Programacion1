@@ -1,0 +1,132 @@
+package Practica1;
+
+public class Imagen {
+
+
+	void enrojecer(int cant){
+		
+		for (int i = 0; i<this.pixels.length; i++){
+			
+			for (int i2 = 0; i2<this.pixels[i].length; i2++){
+				
+				if (this.pixels[i][i2].rojo+cant>255){
+					
+					this.pixels[i][i2].rojo = 255;
+				}
+				
+				else{
+					
+					this.pixels[i][i2].rojo+=cant;
+				}
+			}
+		}
+	}
+	
+	void aumentarBrillo(int cant){
+		
+		for (int i = 0; i<this.pixels.length; i++){
+			
+			for (int i2 = 0; i2<this.pixels[i].length; i2++){
+				
+				if (this.pixels[i][i2].rojo+cant>255){
+					
+					this.pixels[i][i2].rojo = 255;
+				}
+				
+				else{
+					
+					this.pixels[i][i2].rojo+=cant;
+				}
+				
+				if (this.pixels[i][i2].verde+cant>255){
+					
+					this.pixels[i][i2].verde = 255;
+				}
+				
+				else{
+					
+					this.pixels[i][i2].verde+=cant;
+				}
+				
+				if (this.pixels[i][i2].azul+cant>255){
+					
+					this.pixels[i][i2].azul = 255;
+				}
+				
+				else{
+					
+					this.pixels[i][i2].azul+=cant;
+				}
+			}
+		}
+	}
+	
+	void aGrises(){
+		
+		for (int i = 0; i<this.pixels.length; i++){
+			
+			for (int i2 = 0; i2<this.pixels[i].length; i2++){
+				
+				this.pixels[i][i2].rojo = (int) ((this.pixels[i][i2].rojo* 0.3) + (this.pixels[i][i2].verde*0.6) + (this.pixels[i][i2].azul*0.1));
+				this.pixels[i][i2].verde = this.pixels[i][i2].rojo;
+				this.pixels[i][i2].azul = this.pixels[i][i2].rojo;
+			}
+		}
+	}
+
+	void invertir(){
+		
+		for (int i = 0; i<this.pixels.length; i++){
+			
+			for (int i2 = 0; i2<this.pixels[i].length; i2++){
+				
+				this.pixels[i][i2].rojo = 255-this.pixels[i][i2].rojo;
+				this.pixels[i][i2].verde = 255-this.pixels[i][i2].verde;
+				this.pixels[i][i2].azul = 255-this.pixels[i][i2].azul;
+			}
+		}
+	}
+	
+	void espejar(){
+
+		for (int i = 0; i<this.pixels.length; i++){
+			
+			for (int i2 = 0; i2<this.pixels[i].length/2; i2++){
+				
+				int rojoAnt = this.pixels[i][i2].rojo;
+				this.pixels[i][i2].rojo = this.pixels[i][this.pixels[i].length-1-i2].rojo;
+				this.pixels[i][this.pixels[i].length-1-i2].rojo = rojoAnt;
+				
+				int verdeAnt = this.pixels[i][i2].verde;
+				this.pixels[i][i2].verde = this.pixels[i][this.pixels[i].length-1-i2].verde;
+				this.pixels[i][this.pixels[i].length-1-i2].verde = verdeAnt;
+				
+				int azulAnt = this.pixels[i][i2].azul;
+				this.pixels[i][i2].azul = this.pixels[i][this.pixels[i].length-1-i2].azul;
+				this.pixels[i][this.pixels[i].length-1-i2].azul = azulAnt;
+			}
+		}
+	}
+	
+	void girarDerecha(){
+		
+		Pixel[][] matriz;
+		
+		matriz = new Pixel[this.ancho][this.alto];
+
+		for (int i = 0; i<matriz.length; i++){
+			
+			for (int i2 = 0; i2<matriz[i].length; i2++){
+				
+				matriz[i][i2] = this.pixels[this.alto-1-i2][i];
+
+			}
+		}
+	
+	public static void main(String[] args) {
+		
+		Imagen imagen = new Imagen("images.jpeg");
+		
+		Dibujador.dibujar(imagen);
+	}
+}
