@@ -199,13 +199,61 @@ public class Imagen {
 		}
 	}
 	
+	public void cortarImagen(int dim){
+				
+		int altoAbs = alto/dim;
+		int anchoAbs = ancho/dim;
+		
+		int iniX = 0;
+		int iniY = 0;
+		int finX = anchoAbs;
+		int finY = altoAbs;
+		
+		int cont = 0;
+		
+		for(int h=0;h<dim*dim;h++){
+		
+			BufferedImage image = new BufferedImage(anchoAbs, altoAbs, BufferedImage.TYPE_INT_RGB);
+			
+			int i2 = 0;
+			for(int i=iniY; i<finY; i++)
+			{
+				int j2 = 0;
+				for(int j=iniX; j<finX; j++){
+					image.setRGB(j2,i2, pixels[i][j].aInt());
+					j2++;
+				}
+				i2++;
+			}
+			
+			try {
+				ImageIO.write(image, "jpg", new File("part"+h+".jpg"));
+			} catch (IOException e) {
+				System.err.println("Error al guardar en el archivo " + "part"+h+".jpg");
+				e.printStackTrace();
+			}
+			
+			iniX += anchoAbs;
+			finX += anchoAbs;
+			
+			cont++;
+			
+			if(cont>=dim){
+				
+				iniY += altoAbs;
+				finY += altoAbs;
+				iniX = 0;
+				finX = anchoAbs;
+				cont = 0;
+			}
+		}
+	}
+	
 	public static void main(String[] args) {
 		
-		Imagen imagen = new Imagen("C:/Users/PC/Programacion/OneDrive/TP Final/bin/virus.png");
+		Imagen imagen = new Imagen("F:/PC/Desktop/wea2.jpg");
 		
-		imagen.desenrojecer(10);
-		
-		Dibujador.dibujar(imagen);
+		imagen.cortarImagen(3);
 	}
 }
 	
