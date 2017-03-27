@@ -72,6 +72,10 @@ public class Juego extends InterfaceJuego {
 		this.cuentaFPSdisparo = 0;
 		this.cuentaFPSanticuerpo = 0;
 		this.cuentaFPScolesterol = 0;
+		
+		//corrige ubicacion de imagenes para evitar conflictos con git.
+		CopiadorABin.iniciar();
+
 	}
 
 	public void tick() {
