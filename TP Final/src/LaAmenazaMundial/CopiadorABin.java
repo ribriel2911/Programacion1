@@ -5,7 +5,7 @@ public class CopiadorABin {
 	  public static void iniciar() {
 		  
 		  CopiarFicheros.copiar("fondo.jpg", "bin/fondo.jpg");
-		  CopiarFicheros.copiar("gano.jpg", "bin/fondo.jpg");
+		  CopiarFicheros.copiar("gano.jpg", "bin/gano.jpg");
 		  CopiarFicheros.copiar("imagen.png", "bin/imagen.png");
 		  
 		  for(int i=0;i<10;i++){
