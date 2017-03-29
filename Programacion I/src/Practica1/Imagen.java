@@ -249,9 +249,81 @@ public class Imagen {
 		}
 	}
 	
+	public void duplicarTamaño(String archivo,String formato){
+		
+		BufferedImage image = new BufferedImage(ancho*2, alto*2, BufferedImage.TYPE_INT_RGB);
+		for(int i=0; i<alto*2; i++)
+		{
+			for(int j=0; j<ancho*2; j++){
+				
+				image.setRGB(j,i, pixels[i/2][j/2].aInt());
+			}
+		}
+		
+		try {
+			ImageIO.write(image, formato, new File(archivo));
+		} catch (IOException e) {
+			System.err.println("Error al guardar en el archivo " + archivo);
+			e.printStackTrace();
+		}
+		
+	}
+
+	
+	public void guardarRedimensionado(String archivo, String formato, int X, int Y){
+		
+
+		
+		if (X>ancho||Y>alto){
+			
+			duplicarTamaño(archivo,formato);
+			
+			Imagen imagen = new Imagen(archivo);
+			
+			imagen.guardarRedimensionado(archivo, formato,X,Y);
+			
+		}
+		
+		else{
+			
+			if(X==ancho && Y==alto) guardar(archivo,formato);
+			
+			else{
+				
+				guardarReducido(archivo, formato, X, Y);
+			}
+		}
+	}
+
+
+	public void guardarReducido(String archivo, String formato, int X, int Y) {
+		
+		
+		BufferedImage image = new BufferedImage(X, Y, BufferedImage.TYPE_INT_RGB);
+		for(int i=0; i<Y; i++)
+		{
+			for(int j=0; j<X; j++){
+				
+				image.setRGB(j,i, pixels[i*(alto/Y)][j*(ancho/X)].aInt());
+			}
+		}
+		
+		try {
+			ImageIO.write(image, formato, new File(archivo));
+		} catch (IOException e) {
+			System.err.println("Error al guardar en el archivo " + archivo);
+			e.printStackTrace();
+		}
+	}
+	
+	
 	public static void main(String[] args) {
 		
-		Imagen imagen = new Imagen("F:/PC/Desktop/wea2.jpg");
+		Imagen imagen = new Imagen("F:/PC/Desktop/wea3.jpg");
+		
+		imagen.guardarRedimensionado("prueba.jpg", "jpg",150,150);
+		
+		imagen = new Imagen("prueba.jpg");
 		
 		imagen.cortarImagen(3);
 	}
